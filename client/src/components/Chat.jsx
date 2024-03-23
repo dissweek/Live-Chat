@@ -38,7 +38,7 @@ const Chat = () => {
   },[]);
 
   const leftRoom = () =>{
-    socket.emit('leftRoom',{params}),
+    socket.emit('leftRoom',{params});
     navigate('/')
   }
   const onEmojiClick = ({emoji}) =>{setMessage(`${message}${emoji}`)}

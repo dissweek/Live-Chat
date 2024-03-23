@@ -4,7 +4,7 @@ const { Server } = require("socket.io");
 const cors = require("cors");
 const route = require("./route");
 const app = express();
-const {addUser,findUser,getRoomUsers} = require('./users')
+const {addUser,findUser,getRoomUsers, removeUser} = require('./users')
 
 app.use(cors({origin: '*'}))
 app.use(route)
@@ -52,10 +52,13 @@ io.on("connection", socket => {
   })
 
   socket.on('leftRoom',({params})=>{
-    const user = findUser(params)
+    const user = removeUser(params)
 
-    if(user){         
-      io.to(user.room).emit('message',)
+    if(user){   
+      const {room,name} = user
+      
+      io.to(user.room).emit('message', {data:{user:{name:"Admin"},message:`${name} has left`}})
+      io.to(user.room).emit('room',{data: {users:getRoomUsers(user.room)} })
     }
   })
 
