@@ -43,6 +43,7 @@ const Chat = () => {
   }
   const onEmojiClick = ({emoji}) =>{setMessage(`${message}${emoji}`)}
   const handleChange = ({target:{value}}) => setMessage(value)
+  
   const handleSubmit = (e) =>{ 
     e.preventDefault()
   
